@@ -5,7 +5,7 @@ import com.williamsilva.admin.catalogo.domain.category.CategoryId;
 
 public record CreateCategoryOutput(CategoryId id) {
 
-    public static CreateCategoryOutput with(Category category) {
+    public static CreateCategoryOutput from(Category category) {
         return new CreateCategoryOutput(category.getId());
     }
 }
