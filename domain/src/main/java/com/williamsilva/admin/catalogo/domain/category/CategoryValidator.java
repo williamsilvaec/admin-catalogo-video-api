@@ -6,6 +6,9 @@ import com.williamsilva.admin.catalogo.domain.validation.Validator;
 
 public class CategoryValidator extends Validator {
 
+    public static final int NAME_MIN_LENGTH = 3;
+    public static final int NAME_MAX_LENGTH = 30;
+
     private final Category category;
 
     public CategoryValidator(Category category, ValidationHandler aHandler) {
@@ -31,7 +34,7 @@ public class CategoryValidator extends Validator {
         }
 
         final int nameLength = name.trim().length();
-        if (nameLength < 3 || nameLength > 30) {
+        if (nameLength < NAME_MIN_LENGTH || nameLength > NAME_MAX_LENGTH) {
             this.validationHandler().append(new Error("'nome' deve ter no mínimo 3 caracteres e no máximo 30"));
         }
     }
