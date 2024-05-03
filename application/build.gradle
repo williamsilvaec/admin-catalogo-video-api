@@ -10,8 +10,10 @@ repositories {
 }
 
 dependencies {
+    implementation project(':domain')
     testImplementation platform('org.junit:junit-bom:5.10.0')
     testImplementation 'org.junit.jupiter:junit-jupiter'
+    testImplementation group: 'org.mockito', name: 'mockito-junit-jupiter', version: '5.11.0'
 }
 
 test {
