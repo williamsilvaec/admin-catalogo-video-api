@@ -5,7 +5,7 @@ import com.williamsilva.admin.catalogo.domain.validation.ValidationHandler;
 
 import java.time.Instant;
 
-public class Category extends AggregateRoot<CategoryId> {
+public class Category extends AggregateRoot<CategoryID> {
 
     private String name;
     private String description;
@@ -15,7 +15,7 @@ public class Category extends AggregateRoot<CategoryId> {
     private Instant deletedAt;
 
     private Category(
-            final CategoryId anId,
+            final CategoryID anId,
             final String aName,
             final String aDescription,
             final boolean isActive,
@@ -33,10 +33,42 @@ public class Category extends AggregateRoot<CategoryId> {
     }
 
     public static Category newCategory(final String aName, final String aDescription, final boolean isActive) {
-        final var id = CategoryId.unique();
+        final var id = CategoryID.unique();
         final var now = Instant.now();
         final var deletedAt = isActive ? null : now;
         return new Category(id, aName, aDescription, isActive, now, now, deletedAt);
+    }
+
+    public static Category with(
+            final CategoryID anId,
+            final String name,
+            final String description,
+            final boolean active,
+            final Instant createdAt,
+            final Instant updatedAt,
+            final Instant deletedAt
+    ) {
+        return new Category(
+                anId,
+                name,
+                description,
+                active,
+                createdAt,
+                updatedAt,
+                deletedAt
+        );
+    }
+
+    public static Category with(final Category aCategory) {
+        return new Category(
+                aCategory.getId(),
+                aCategory.getName(),
+                aCategory.getDescription(),
+                aCategory.isActive(),
+                aCategory.getCreatedAt(),
+                aCategory.getUpdatedAt(),
+                aCategory.getDeletedAt()
+        );
     }
 
     @Override
@@ -76,7 +108,7 @@ public class Category extends AggregateRoot<CategoryId> {
         return this;
     }
 
-    public CategoryId getId() {
+    public CategoryID getId() {
         return id;
     }
 
